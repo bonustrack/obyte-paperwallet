@@ -19,6 +19,11 @@
       <button @click="generateRandomWallet">
         Generate new random wallet
       </button>
+      <p>
+        If you want to run the script locally you can download the files
+        <a href="https://github.com/bonuschain/byteball-paperwallet/tree/master/docs" target="_blank">here</a>.
+        This script will work even without internet.
+      </p>
     </div>
   </div>
 </template>

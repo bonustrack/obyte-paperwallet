@@ -6,7 +6,20 @@
     <div class="content">
       <b>Path</b>
       <input v-model="path" />
-      <div>
+      <b>Env</b>
+      <select v-model="env">
+        <option value="mainnet">Mainnet</option>
+        <option value="testnet">Testnet</option>
+      </select>
+      <button @click="generateRandomWallet">
+        Generate new random wallet
+      </button>
+      <p>
+        If you want to run the script locally you can download the files
+        <a href="https://github.com/bonuschain/byteball-paperwallet/tree/master/docs" target="_blank">here</a>.
+        This script will work even without internet.
+      </p>
+      <div v-show="seed">
         <b>Seed</b>
         <p>{{seed}}</p>
         <b>WIF</b>
@@ -16,14 +29,6 @@
         <b>Address</b>
         <p>{{address}}</p>
       </div>
-      <button @click="generateRandomWallet">
-        Generate new random wallet
-      </button>
-      <p>
-        If you want to run the script locally you can download the files
-        <a href="https://github.com/bonuschain/byteball-paperwallet/tree/master/docs" target="_blank">here</a>.
-        This script will work even without internet.
-      </p>
     </div>
   </div>
 </template>
@@ -38,6 +43,7 @@ export default {
   data() {
     return {
       path: "m/44'/0'/1'/0/0",
+      env: 'mainnet',
       seed: null,
       wif: null,
       pubkey: null,
@@ -54,19 +60,21 @@ export default {
       const xPrivKey = mnemonic.toHDPrivateKey();
       const { privateKey } = xPrivKey.derive(this.path);
       const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
-      this.wif = wifLib.encode(128, privKeyBuf, false);
+      const version = this.env === 'testnet' ? 239 : 128;
+      this.wif = wifLib.encode(version, privKeyBuf, false);
       this.pubkey = privateKey.publicKey.toBuffer().toString('base64');
       const definition = ['sig', { pubkey: this.pubkey }];
       this.address = objectHash.getChash160(definition);
     }
-  },
-  mounted() {
-    this.generateRandomWallet();
   }
 }
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
@@ -79,11 +87,11 @@ export default {
   text-align: left;
 }
 
-input, textarea, button {
+input, textarea, select, button {
   font-size: 16px;
   width: 100%;
   border: 1px solid #ccc;
-  margin-bottom: 20px;
+  margin: 4px 0 16px;
   padding: 4px 8px;
   border-radius: 4px;
 }
@@ -91,5 +99,10 @@ input, textarea, button {
 button {
   outline: 0;
   padding: 8px;
+  cursor: pointer;
+}
+
+p {
+  margin: 4px 0 16px;
 }
 </style>

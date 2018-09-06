@@ -42,7 +42,7 @@ export default {
   name: 'app',
   data() {
     return {
-      path: "m/44'/0'/1'/0/0",
+      path: "m/44'/0'/0'/0/0",
       env: 'mainnet',
       seed: null,
       wif: null,

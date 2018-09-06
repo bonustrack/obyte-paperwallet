@@ -4,11 +4,9 @@
       Byteball paper wallet
     </h1>
     <div class="content">
-      <b>Path</b>
-      <input v-model="path" />
       <b>Env</b>
       <select v-model="env">
-        <option value="mainnet">Mainnet</option>
+        <option value="livenet">Livenet</option>
         <option value="testnet">Testnet</option>
       </select>
       <button @click="generateRandomWallet">
@@ -22,6 +20,8 @@
       <div v-show="seed">
         <b>Seed</b>
         <p>{{seed}}</p>
+        <b>Path</b>
+        <p>{{path}}</p>
         <b>WIF</b>
         <p>{{wif}}</p>
         <b>Public key</b>
@@ -42,9 +42,9 @@ export default {
   name: 'app',
   data() {
     return {
-      path: "m/44'/0'/0'/0/0",
-      env: 'mainnet',
+      env: 'livenet',
       seed: null,
+      path: null,
       wif: null,
       pubkey: null,
       address: null
@@ -57,6 +57,7 @@ export default {
         mnemonic = new Mnemonic();
       }
       this.seed = mnemonic.phrase;
+      this.path = this.env === 'testnet' ? "m/44'/1'/0'/0/0" : "m/44'/0'/0'/0/0";
       const xPrivKey = mnemonic.toHDPrivateKey();
       const { privateKey } = xPrivKey.derive(this.path);
       const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });

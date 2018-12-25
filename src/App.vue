@@ -34,9 +34,8 @@
 </template>
 
 <script>
+const utils = require('byteball/lib/utils');
 const Mnemonic = require('bitcore-mnemonic');
-const objectHash = require('byteballcore/object_hash');
-const wifLib = require('wif');
 
 export default {
   name: 'app',
@@ -61,11 +60,11 @@ export default {
       const xPrivKey = mnemonic.toHDPrivateKey();
       const { privateKey } = xPrivKey.derive(this.path);
       const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });
-      const version = this.env === 'testnet' ? 239 : 128;
-      this.wif = wifLib.encode(version, privKeyBuf, false);
+      const testnet = this.env === 'testnet';
+      this.wif = utils.toWif(privKeyBuf, testnet);
       this.pubkey = privateKey.publicKey.toBuffer().toString('base64');
       const definition = ['sig', { pubkey: this.pubkey }];
-      this.address = objectHash.getChash160(definition);
+      this.address = utils.getChash160(definition);
     }
   }
 }

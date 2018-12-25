@@ -7,13 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "bitcore-mnemonic": "^1.5.0",
-    "byteballcore": "^0.2.90",
-    "vue": "^2.5.17",
-    "wif": "^2.0.6"
+    "bitcore-mnemonic": "^1.7.0",
+    "byteball": "^0.1.2",
+    "vue": "^2.5.21"
   },
   "devDependencies": {
     "@vue/cli-service": "^3.0.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.21"
   }
 }

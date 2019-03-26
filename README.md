@@ -1,1 +1,1 @@
-# Byteball paper wallet
+# Obyte paper wallet

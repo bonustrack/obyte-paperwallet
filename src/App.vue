@@ -56,7 +56,7 @@ export default {
         mnemonic = new Mnemonic();
       }
       this.seed = mnemonic.phrase;
-      this.path = this.env === 'testnet' ? "m/44'/1'/0'/0/0" : "m/44'/0'/0'/0/0";
+      this.path = "m/44'/0'/0'/0/0";
       const xPrivKey = mnemonic.toHDPrivateKey();
       const { privateKey } = xPrivKey.derive(this.path);
       const privKeyBuf = privateKey.bn.toBuffer({ size: 32 });

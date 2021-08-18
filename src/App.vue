@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>
-      Byteball paper wallet
+      Obyte paper wallet
     </h1>
     <div class="content">
       <b>Env</b>
@@ -14,7 +14,7 @@
       </button>
       <p>
         If you want to run the script locally you can download the files
-        <a href="https://github.com/bonuschain/byteball-paperwallet/tree/master/docs" target="_blank">here</a>.
+        <a href="https://github.com/bonustrack/obyte-paperwallet/tree/master/docs" target="_blank">here</a>.
         This script will work even without internet.
       </p>
       <div v-show="seed">
